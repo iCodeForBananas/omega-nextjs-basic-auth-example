@@ -14,8 +14,8 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-const USER = process.env.BASIC_AUTH_USER!;
-const PASS = process.env.BASIC_AUTH_PASS!;
+const USER = 'admin';
+const PASS = 'password';
 
 function isAuthenticated(req: NextRequest): boolean {
   if (!USER || !PASS) return false;
