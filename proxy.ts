@@ -18,6 +18,7 @@ const USER = process.env.BASIC_AUTH_USER!;
 const PASS = process.env.BASIC_AUTH_PASS!;
 
 function isAuthenticated(req: NextRequest): boolean {
+  if (!USER || !PASS) return false;
   const auth = req.headers.get('authorization');
   if (!auth?.startsWith('Basic ')) return false;
   const [user, pass] = atob(auth.slice(6)).split(':');
