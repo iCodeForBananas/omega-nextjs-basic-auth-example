@@ -1,15 +1,14 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
-const TOKEN = 'letmein';
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
 export function middleware(req: NextRequest) {
-  if (req.nextUrl.searchParams.get('token') !== TOKEN) {
-    return new NextResponse('Unauthorized', { status: 401 });
+  const session = req.cookies.get('session')?.value
+  if (session !== 'authenticated') {
+    return NextResponse.redirect(new URL('/', req.url))
   }
-  return NextResponse.next();
+  return NextResponse.next()
 }
 
 export const config = {
   matcher: ['/dashboard/:path*'],
-};
+}
